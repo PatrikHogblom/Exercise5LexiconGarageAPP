@@ -30,19 +30,27 @@ namespace Exercise5LexiconGarage.Garages
             Console.WriteLine("--------------------------------------");
         }
 
-        //Update garage 
+        //method to get the index of a garage based on its name
+        public int GetGarageIndexByName(string name)
+        {
+            for (int i = 0; i < garageList.Count; i++)
+            {
+                if (garageList[i].GarageName == name)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
 
-        //Enter capacity
+        //Update garage? 
+        //Enter capacity?
+        //enter name?
+        //enter city?
 
-
-        //enter name
-
-        //enter city 
-
-        //add garage to a list of garages
-
-
-
+        //submenu 
+        //add vechiles to vehiles[] to specific garage
+        //remove vehicles
 
 
     }

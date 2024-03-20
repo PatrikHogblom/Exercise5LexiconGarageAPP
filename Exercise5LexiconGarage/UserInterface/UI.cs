@@ -23,9 +23,16 @@ namespace Exercise5LexiconGarage
                         break;
                     case "2":
                         //1.choose which garage you want to use
+                        garagehandler.PrintGaragesStored();
+
+                        Console.WriteLine("Enter the name of garage you want to use: ");
+                        string inputGarageName = Console.ReadLine();
+
+                        //get the index of position of tha garage name
+                        int garageIndex = garagehandler.GetGarageIndexByName(inputGarageName);
 
                         //2. create a submeny wheras we add vehicles to the garage
-                        SubMenu();
+                        SubMenu(garageIndex);
                         break;
                     case "3":
                         programRun = false;
@@ -34,7 +41,7 @@ namespace Exercise5LexiconGarage
             }while (programRun);
         }
 
-        private static void SubMenu()
+        private static void SubMenu(int indexGarage)
         {
             bool programRun = true;
             do
@@ -82,6 +89,7 @@ namespace Exercise5LexiconGarage
             throw new NotImplementedException();
         }
 
+        //gör detta i garagehandler istället?
         public static void CreateGarageObject()
         {
             //todo: asks the user to input capacity, name, adress, city of the garage

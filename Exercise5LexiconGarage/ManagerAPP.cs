@@ -11,8 +11,6 @@ namespace Exercise5LexiconGarage
         public void RunProgram()
         {
             UI.MainMenu();
-
-            //todo: create a main menu function
         }
     }
 }

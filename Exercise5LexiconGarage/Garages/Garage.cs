@@ -1,4 +1,6 @@
 ﻿
+using Exercise5LexiconGarage.Vehicles;
+
 namespace Exercise5LexiconGarage.Garages
 {
     /*

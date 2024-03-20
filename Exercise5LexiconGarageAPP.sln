@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise5LexiconGarage", "Exercise5LexiconGarage\Exercise5LexiconGarage.csproj", "{15536AE8-8234-42AA-96A0-440300CBA0CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15536AE8-8234-42AA-96A0-440300CBA0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15536AE8-8234-42AA-96A0-440300CBA0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15536AE8-8234-42AA-96A0-440300CBA0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15536AE8-8234-42AA-96A0-440300CBA0CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1CEE003-C085-403C-877E-26BF2C540BCD}
+	EndGlobalSection
+EndGlobal

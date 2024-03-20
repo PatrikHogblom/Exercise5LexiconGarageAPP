@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-            
+             var manager = new ManagerAPP();
+             manager.RunProgram();
+
+            //Console.ReadLine();
         }
     }
 }

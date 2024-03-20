@@ -5,11 +5,6 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise5LexiconGarage", "Exercise5LexiconGarage\Exercise5LexiconGarage.csproj", "{15536AE8-8234-42AA-96A0-440300CBA0CC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserInterface", "UserInterface", "{8B644787-BCE7-4347-B9AF-9D3C9A8372D1}"
-	ProjectSection(SolutionItems) = preProject
-		Exercise5LexiconGarage\UI.cs = Exercise5LexiconGarage\UI.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -4,7 +4,7 @@ namespace Exercise5LexiconGarage
 {
     public class UI
     {
-        private static List<Garage> garageList = new List<Garage>();//store the created garage objects  
+        private static GarageHandler garagehandler = new GarageHandler();
         public static void MainMenu()
         {
             bool programRun = true;
@@ -19,10 +19,13 @@ namespace Exercise5LexiconGarage
                 {
                     case "1":
                         CreateGarageObject();
-                        PrintGaragesStored();
+                        garagehandler.PrintGaragesStored();
                         break;
                     case "2":
-                        throw new NotImplementedException();
+                        //1.choose which garage you want to use
+
+                        //2. create a submeny wheras we add vehicles to the garage
+                        SubMenu();
                         break;
                     case "3":
                         programRun = false;
@@ -31,22 +34,58 @@ namespace Exercise5LexiconGarage
             }while (programRun);
         }
 
-        public static void PrintGaragesStored()
+        private static void SubMenu()
         {
-            Console.WriteLine("---------------Garages----------------");
-            foreach (var item in garageList)
+            bool programRun = true;
+            do
             {
-                Console.WriteLine(item.ToString());
-            }
-            Console.WriteLine("--------------------------------------");
+                Console.WriteLine("1. Park vehicle: ");
+                Console.WriteLine("2. Remove vehicle: ");
+                Console.WriteLine("3. print all parked vehicles in the garage: ");
+                Console.WriteLine("4. print all parked vehicles according a type in the garage: ");
+                Console.WriteLine("5. Search after a vehicle in the garage according to registernumber: ");
+                Console.WriteLine("6. Search after vehicles using a text");
+                Console.WriteLine("7. Go back to main menu");
+
+                var input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        throw new NotImplementedException();
+                        break;
+                    case "2":
+                        throw new NotImplementedException();
+                        break;
+                    case "3":
+                        throw new NotImplementedException();
+                        break;
+                    case "4":
+                        throw new NotImplementedException();
+                        break;
+                    case "5":
+                        throw new NotImplementedException();
+                        break;
+                    case "6":
+                        throw new NotImplementedException();
+                        break;
+                    case "7":
+                        programRun = false;
+                        break;
+                }
+            } while (programRun);
+        }
+
+        private static void ParkVehicleInGarage(Garage garage)
+        {
+            //create a garagehandler, here we add the vehicle to a vehilce class 
+
+            throw new NotImplementedException();
         }
 
         public static void CreateGarageObject()
         {
             //todo: asks the user to input capacity, name, adress, city of the garage
             //before you create the object
-
-
             //have a try catch here here in case
             try 
             {
@@ -63,15 +102,14 @@ namespace Exercise5LexiconGarage
                 Console.WriteLine("Enter the city of the garage: ");
                 string city = Console.ReadLine();
 
-                //Create the object of the garage 
-                Garage garage = new Garage(capacity, garageName, address, city);
-                garageList.Add(garage);
-
+                //add the garage to the garageList in garageHandler 
+                garagehandler.addGarageToList(capacity, garageName, address, city);
+                
                 Console.WriteLine("Garage created sucessfully");
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Something went wrong when creating garage object: " + ex.Message);
             }
         }
     }

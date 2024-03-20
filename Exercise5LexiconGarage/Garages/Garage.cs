@@ -24,5 +24,27 @@ namespace Exercise5LexiconGarage.Garages
             Address = address;
             City = city;
         }
+
+        public int GarageCapacity 
+        {
+            get {  return totVehicleCapacity; } 
+            //set {  totVehicleCapacity = value; } 
+        }
+        public string GarageName 
+        { 
+            get { return NameGarage; }
+            set { NameGarage = value; }
+        }
+        public string GarageAddress
+        {
+            get { return Address; }
+            set { Address = value; }
+        }
+
+        public string GarageCity
+        {
+            get { return City; }
+            set { City = value; }
+        }
     }
 }

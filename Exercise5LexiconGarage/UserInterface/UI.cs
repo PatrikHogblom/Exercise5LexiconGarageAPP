@@ -1,4 +1,5 @@
 ﻿using Exercise5LexiconGarage.Garages;
+using Exercise5LexiconGarage.Vehicles;
 
 namespace Exercise5LexiconGarage
 {
@@ -43,7 +44,7 @@ namespace Exercise5LexiconGarage
 
         private static void SubMenu(int indexGarage)
         {
-            Garage currentGarage = garagehandler.GetGarageByIndex(indexGarage);
+            Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(indexGarage);
             bool programRun = true;
             do
             {
@@ -83,12 +84,6 @@ namespace Exercise5LexiconGarage
             } while (programRun);
         }
 
-        private static void ParkVehicleInGarage(Garage garage)
-        {
-            //create a garagehandler, here we add the vehicle to a vehilce class 
-
-            throw new NotImplementedException();
-        }
 
         //gör detta i garagehandler istället?
         public static void CreateGarageObject()

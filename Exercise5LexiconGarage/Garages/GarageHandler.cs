@@ -5,19 +5,19 @@ namespace Exercise5LexiconGarage.Garages
 {
     public class GarageHandler
     {
-        private List<Garage> garageList;
+        private List<Garage<Vehicle>> garageList;
     
         //mainmenu methods:
         public GarageHandler()
         {
             // Initialize garageList in the constructor
-            garageList = new List<Garage>();
+            garageList = new List<Garage<Vehicle>>();
         }
 
         //add garage to a list of garages
         public void addGarageToList(int capacity, string name, string address, string city)
         {
-            garageList.Add(new Garage(capacity, name, address, city));
+            garageList.Add(new Garage<Vehicle>(capacity, name, address, city));
         }
 
         //print the garages
@@ -44,7 +44,7 @@ namespace Exercise5LexiconGarage.Garages
             return -1;
         }
 
-        public void AddVehicle(Garage garage)
+        public void AddVehicle(Garage<Vehicle> garage)
         {
             //what to do here? 
             //1.create the Vehicle object
@@ -57,26 +57,28 @@ namespace Exercise5LexiconGarage.Garages
                 Console.WriteLine("3. Add a Bus");
                 Console.WriteLine("4. Add a Car");
                 Console.WriteLine("5. Add a Motorcycle");
+                Console.WriteLine("6. Go back to submenu");
 
                 string input = Console.ReadLine();
                 switch (input)
                 {
                     case "1":
-                        AirPlane airPlane = new AirPlane("123","RED", "6", "airtoo", "1996", 3 );
-                        garage.addVehicle(airPlane);
-                        ProgramRun = false;
+                        garage.addVehicle(CreateAirplaneObject());
                         break;
                     case "2":
-                        throw new NotImplementedException();
+                        garage.addVehicle(CreateBoatObject());
                         break ;
                     case "3":
-                        throw new NotImplementedException();
+                        garage.addVehicle(CreateBusObject());
                         break;
                     case "4":
-                        throw new NotImplementedException();
+                        garage.addVehicle(CreateCarObject());
                         break;
                     case "5":
-                        throw new NotImplementedException();
+                        garage.addVehicle(CreateMotorCycleObject());
+                        break;
+                    case "6":
+                        ProgramRun = false;
                         break;
                 }
                 
@@ -87,8 +89,99 @@ namespace Exercise5LexiconGarage.Garages
             //2.add the vehicle to the Vehicle array in Garage Class 
         }
 
+        private AirPlane CreateAirplaneObject()
+        {
+            string regNumber, color, model, year;
+            int totWheels;
+            InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
+           
+            Console.WriteLine("Insert Number of enginges: ");
+            int totEngnies;
+            int.TryParse(Console.ReadLine(), out totEngnies);
+
+            AirPlane airPlane = new AirPlane(regNumber, color, totWheels, model, year, totEngnies);
+
+            return airPlane;
+        }
+
+        private Boat CreateBoatObject()
+        {
+            string regNumber, color, model, year;
+            int totWheels;
+            InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
+
+            Console.WriteLine("Insert Length of boat: ");
+            double boatLength;
+            double.TryParse(Console.ReadLine(), out boatLength);
+
+            Boat boat = new Boat(regNumber, color, totWheels, model, year, boatLength);
+
+            return boat;
+        }
+
+        private Bus CreateBusObject()
+        {
+            string regNumber, color, model, year;
+            int totWheels;
+            InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
+
+            Console.WriteLine("Insert number of seats: ");
+            int numberofSeats;
+            int.TryParse(Console.ReadLine(), out numberofSeats);
+
+            Bus bus = new Bus(regNumber, color, totWheels, model, year, numberofSeats);
+
+            return bus;
+        }
+
+        private Car CreateCarObject()
+        {
+            string regNumber, color, model, year;
+            int totWheels;
+            InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
+
+            Console.WriteLine("Insert fueltype: ");
+            string fuelType = Console.ReadLine();
+
+            Car car = new Car(regNumber, color, totWheels, model, year, fuelType);
+
+            return car;
+        }
+
+        private Motorcycle CreateMotorCycleObject()
+        {
+            string regNumber, color, model, year;
+            int totWheels;
+            InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
+
+            Console.WriteLine("Insert CylinderVoulme: ");
+            double cylinderVolume;
+            double.TryParse(Console.ReadLine(), out cylinderVolume);
+
+
+            Motorcycle motorcycle = new Motorcycle(regNumber, color, totWheels, model, year, cylinderVolume);
+
+            return motorcycle;
+        }
+
+        private static void InputVehicleVariables(out string regNumber, out string color, out int totWheels, out string model, out string year)
+        {
+            //todo: if able then create a for statement to input all values of each subclass?
+            Console.WriteLine("Insert RegisterNumber: ");
+            regNumber = Console.ReadLine();
+            Console.WriteLine("Insert Color: ");
+            color = Console.ReadLine();
+            Console.WriteLine("Insert total Wheels: ");
+            int.TryParse(Console.ReadLine(), out totWheels);
+
+            Console.WriteLine("Insert model: ");
+            model = Console.ReadLine();
+            Console.WriteLine("Insert year: ");
+            year = Console.ReadLine();
+        }
+
         //get specific garage
-        public Garage GetGarageByIndex(int index)
+        public Garage<Vehicle> GetGarageByIndex(int index)
         {
             return garageList[index];
         }

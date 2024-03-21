@@ -10,7 +10,7 @@ namespace Exercise5LexiconGarage.Garages
     3. övriga properties/fields: garageID, Namn, adress, stad, totPlatser   
      
      */
-    public class Garage
+    public class Garage<T> where T : Vehicle
     {
         private Vehicle[] Vehicles;
         private int totVehicleCapacity;
@@ -49,7 +49,7 @@ namespace Exercise5LexiconGarage.Garages
             set { City = value; }
         }
 
-        public void addVehicle(AirPlane airPlane)
+        public void addVehicle(T airPlane)
         {
             //find a empty slot in the Vehicles array
             int index = Array.FindIndex(Vehicles, vehicle => vehicle == null);
@@ -70,15 +70,16 @@ namespace Exercise5LexiconGarage.Garages
             Console.WriteLine("------------Vehicles obj Array--------------");
             for (int i = 0; i < Vehicles.Length; i++)
             {
+                //todo: might change this according to subclass type, i.e. every sub class have a unique "egenskap" 
                 if (Vehicles[i] != null)
                 {
-                    Console.WriteLine(Vehicles[i].RegisterNumber);
+                    Type type = Vehicles[i].GetType();
+                    Console.WriteLine($" VehicleType: {type.Name} registerNumber: {Vehicles[i].RegisterNumber}");
+                    //todo: skapa en metod states() för skriva ut klassens variabler?
                 }
             }
             Console.WriteLine("--------------------------------------------");
         }
 
-
-        //add to the vehicle class 
     }
 }

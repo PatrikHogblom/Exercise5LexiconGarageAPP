@@ -10,7 +10,7 @@ namespace Exercise5LexiconGarage.Garages
     3. övriga properties/fields: garageID, Namn, adress, stad, totPlatser   
      
      */
-    internal class Garage
+    public class Garage
     {
         private Vehicle[] Vehicles;
         private int totVehicleCapacity;
@@ -48,5 +48,37 @@ namespace Exercise5LexiconGarage.Garages
             get { return City; }
             set { City = value; }
         }
+
+        public void addVehicle(AirPlane airPlane)
+        {
+            //find a empty slot in the Vehicles array
+            int index = Array.FindIndex(Vehicles, vehicle => vehicle == null);
+
+            if (index != -1)
+            {
+                Vehicles[index] = airPlane;
+                Console.WriteLine($"Added {airPlane.RegisterNumber} to the Vehicles[]!");
+            }
+            else 
+            {
+                Console.WriteLine("Garage is full!!!");
+            }
+        }
+
+        public void printVehicles()
+        {
+            Console.WriteLine("------------Vehicles obj Array--------------");
+            for (int i = 0; i < Vehicles.Length; i++)
+            {
+                if (Vehicles[i] != null)
+                {
+                    Console.WriteLine(Vehicles[i].RegisterNumber);
+                }
+            }
+            Console.WriteLine("--------------------------------------------");
+        }
+
+
+        //add to the vehicle class 
     }
 }

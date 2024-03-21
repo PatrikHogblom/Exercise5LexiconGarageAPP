@@ -1,7 +1,7 @@
 ﻿namespace Exercise5LexiconGarage.Vehicles
 {
 
-    abstract class Vehicle : IVehicle
+    public abstract class Vehicle : IVehicle
     {
         private string _registerNumber;
         private string _color;

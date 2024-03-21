@@ -43,6 +43,7 @@ namespace Exercise5LexiconGarage
 
         private static void SubMenu(int indexGarage)
         {
+            Garage currentGarage = garagehandler.GetGarageByIndex(indexGarage);
             bool programRun = true;
             do
             {
@@ -58,13 +59,13 @@ namespace Exercise5LexiconGarage
                 switch (input)
                 {
                     case "1":
-                        throw new NotImplementedException();
+                        garagehandler.AddVehicle(currentGarage);
                         break;
                     case "2":
                         throw new NotImplementedException();
                         break;
                     case "3":
-                        throw new NotImplementedException();
+                        currentGarage.printVehicles();
                         break;
                     case "4":
                         throw new NotImplementedException();

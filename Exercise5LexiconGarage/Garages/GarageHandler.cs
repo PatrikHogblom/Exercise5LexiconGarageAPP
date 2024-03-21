@@ -1,11 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using Exercise5LexiconGarage.Vehicles;
+using System.Runtime.InteropServices;
 
 namespace Exercise5LexiconGarage.Garages
 {
-    internal class GarageHandler
+    public class GarageHandler
     {
         private List<Garage> garageList;
-
+    
         //mainmenu methods:
         public GarageHandler()
         {
@@ -41,6 +42,55 @@ namespace Exercise5LexiconGarage.Garages
                 }
             }
             return -1;
+        }
+
+        public void AddVehicle(Garage garage)
+        {
+            //what to do here? 
+            //1.create the Vehicle object
+            //2.create a switch statement of which type of vehicle object you want to add?
+            bool ProgramRun = true;
+            do
+            {
+                Console.WriteLine("1. Add a Airplane");
+                Console.WriteLine("2. Add a Boat");
+                Console.WriteLine("3. Add a Bus");
+                Console.WriteLine("4. Add a Car");
+                Console.WriteLine("5. Add a Motorcycle");
+
+                string input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        AirPlane airPlane = new AirPlane("123","RED", "6", "airtoo", "1996", 3 );
+                        garage.addVehicle(airPlane);
+                        ProgramRun = false;
+                        break;
+                    case "2":
+                        throw new NotImplementedException();
+                        break ;
+                    case "3":
+                        throw new NotImplementedException();
+                        break;
+                    case "4":
+                        throw new NotImplementedException();
+                        break;
+                    case "5":
+                        throw new NotImplementedException();
+                        break;
+                }
+                
+            }while (ProgramRun);
+
+
+
+            //2.add the vehicle to the Vehicle array in Garage Class 
+        }
+
+        //get specific garage
+        public Garage GetGarageByIndex(int index)
+        {
+            return garageList[index];
         }
 
         //Update garage? 

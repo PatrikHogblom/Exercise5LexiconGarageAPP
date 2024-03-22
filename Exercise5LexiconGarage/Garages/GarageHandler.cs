@@ -1,12 +1,12 @@
 ﻿using Exercise5LexiconGarage.Vehicles;
-using System.Runtime.InteropServices;
+using System.Transactions;
 
 namespace Exercise5LexiconGarage.Garages
 {
     public class GarageHandler
     {
         private List<Garage<Vehicle>> garageList;
-    
+
         //mainmenu methods:
         public GarageHandler()
         {
@@ -67,7 +67,7 @@ namespace Exercise5LexiconGarage.Garages
                         break;
                     case "2":
                         garage.addVehicle(CreateBoatObject());
-                        break ;
+                        break;
                     case "3":
                         garage.addVehicle(CreateBusObject());
                         break;
@@ -81,8 +81,8 @@ namespace Exercise5LexiconGarage.Garages
                         ProgramRun = false;
                         break;
                 }
-                
-            }while (ProgramRun);
+
+            } while (ProgramRun);
 
 
 
@@ -94,7 +94,7 @@ namespace Exercise5LexiconGarage.Garages
             string regNumber, color, model, year;
             int totWheels;
             InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
-           
+
             Console.WriteLine("Insert Number of enginges: ");
             int totEngnies;
             int.TryParse(Console.ReadLine(), out totEngnies);
@@ -184,6 +184,20 @@ namespace Exercise5LexiconGarage.Garages
         public Garage<Vehicle> GetGarageByIndex(int index)
         {
             return garageList[index];
+        }
+
+        public void RemoveVehicle(Garage<Vehicle> currentGarage)
+        {
+            //what to do here 
+            //1. print the existing vehicles
+            currentGarage.printVehicles();
+            //2. choose the registernumber you want to remove
+            Console.WriteLine("Enter the registernumber you want to remove: ");
+            string regNum = Console.ReadLine();//todo cvheck if the registerrnumber exists or not later
+
+            currentGarage.RemoveVehicleByRegisterNumber(regNum);
+
+            currentGarage.printVehicles();
         }
 
         //Update garage? 

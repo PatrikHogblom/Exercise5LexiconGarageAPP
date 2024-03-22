@@ -27,13 +27,13 @@ namespace Exercise5LexiconGarage.Garages
             City = city;
         }
 
-        public int GarageCapacity 
+        public int GarageCapacity
         {
-            get {  return totVehicleCapacity; } 
+            get { return totVehicleCapacity; }
             //set {  totVehicleCapacity = value; } 
         }
-        public string GarageName 
-        { 
+        public string GarageName
+        {
             get { return NameGarage; }
             set { NameGarage = value; }
         }
@@ -49,17 +49,17 @@ namespace Exercise5LexiconGarage.Garages
             set { City = value; }
         }
 
-        public void addVehicle(T airPlane)
+        public void addVehicle(T createdObject)
         {
             //find a empty slot in the Vehicles array
             int index = Array.FindIndex(Vehicles, vehicle => vehicle == null);
 
             if (index != -1)
             {
-                Vehicles[index] = airPlane;
-                Console.WriteLine($"Added {airPlane.RegisterNumber} to the Vehicles[]!");
+                Vehicles[index] = createdObject;
+                Console.WriteLine($"Added {createdObject.RegisterNumber} to the Vehicles[]!");
             }
-            else 
+            else
             {
                 Console.WriteLine("Garage is full!!!");
             }
@@ -73,13 +73,32 @@ namespace Exercise5LexiconGarage.Garages
                 //todo: might change this according to subclass type, i.e. every sub class have a unique "egenskap" 
                 if (Vehicles[i] != null)
                 {
-                    Type type = Vehicles[i].GetType();
-                    Console.WriteLine($" VehicleType: {type.Name} registerNumber: {Vehicles[i].RegisterNumber}");
+                    Console.WriteLine($" VehicleType: {Vehicles[i].GetType().Name} registerNumber: {Vehicles[i].RegisterNumber}");
                     //todo: skapa en metod states() för skriva ut klassens variabler?
                 }
             }
             Console.WriteLine("--------------------------------------------");
         }
 
+        public void RemoveVehicleByRegisterNumber(string regNum)
+        {
+            for (int i = 0; i < Vehicles.Length; i++)
+            {
+                if (Vehicles[i] != null)
+                {
+                    if (Vehicles[i].RegisterNumber.ToLower() == regNum.ToLower())
+                    {
+                        Vehicles[i] = null;
+                        Console.WriteLine($"Removed {regNum} from the parking lot in the current garage.");
+                        break;
+                    }
+                }
+
+                if (i == Vehicles.Length-1) 
+                {
+                    Console.WriteLine($"{regNum} doesn't exist in parking lots ");
+                }
+            }
+        }
     }
 }

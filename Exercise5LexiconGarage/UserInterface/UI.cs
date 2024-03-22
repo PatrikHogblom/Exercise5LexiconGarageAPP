@@ -39,7 +39,7 @@ namespace Exercise5LexiconGarage
                         programRun = false;
                         break;
                 }
-            }while (programRun);
+            } while (programRun);
         }
 
         private static void SubMenu(int indexGarage)
@@ -63,7 +63,7 @@ namespace Exercise5LexiconGarage
                         garagehandler.AddVehicle(currentGarage);
                         break;
                     case "2":
-                        throw new NotImplementedException();
+                        garagehandler.RemoveVehicle(currentGarage);
                         break;
                     case "3":
                         currentGarage.printVehicles();
@@ -91,7 +91,7 @@ namespace Exercise5LexiconGarage
             //todo: asks the user to input capacity, name, adress, city of the garage
             //before you create the object
             //have a try catch here here in case
-            try 
+            try
             {
                 Console.WriteLine("Enter capacity of parking lots in the garage: ");
                 int capacity;
@@ -108,10 +108,10 @@ namespace Exercise5LexiconGarage
 
                 //add the garage to the garageList in garageHandler 
                 garagehandler.addGarageToList(capacity, garageName, address, city);
-                
+
                 Console.WriteLine("Garage created sucessfully");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Something went wrong when creating garage object: " + ex.Message);
             }

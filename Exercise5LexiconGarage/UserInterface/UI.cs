@@ -69,10 +69,10 @@ namespace Exercise5LexiconGarage
                         currentGarage.printVehicles();
                         break;
                     case "4":
-                        throw new NotImplementedException();
+                        garagehandler.printVehiclesByType(currentGarage);
                         break;
                     case "5":
-                        throw new NotImplementedException();
+                        garagehandler.searchVehicleByRegisterNumber(currentGarage);
                         break;
                     case "6":
                         throw new NotImplementedException();

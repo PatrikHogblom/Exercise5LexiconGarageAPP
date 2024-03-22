@@ -1,4 +1,5 @@
 ﻿using Exercise5LexiconGarage.Vehicles;
+using System.Reflection;
 using System.Transactions;
 
 namespace Exercise5LexiconGarage.Garages
@@ -200,15 +201,59 @@ namespace Exercise5LexiconGarage.Garages
             currentGarage.printVehicles();
         }
 
-        //Update garage? 
-        //Enter capacity?
-        //enter name?
-        //enter city?
+        public void printVehiclesByType(Garage<Vehicle> currentGarage)
+        {
+            //get all types 
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+            Console.WriteLine("Types of a vehicle that you can search for: ");
 
-        //submenu 
-        //add vechiles to vehiles[] to specific garage
-        //remove vehicles
+            //Directory to store index-subclass mappings
+            Dictionary<int, Type> subclassMap = new Dictionary<int, Type>();
 
+            int index = 0;
+            foreach (Type type in types)
+            {
+                if (type.IsSubclassOf(typeof(Vehicle)))
+                {
+                    Console.WriteLine($"{index}: {type.Name}");
+                    subclassMap[index++] = type;
+                }
+            }
 
+            //promt the user to choose a index
+            Console.WriteLine("Enter the index of the type to choose from (0, 1, 2, ...):");
+            if(int.TryParse(Console.ReadLine(), out int selectedIndex))
+            {
+                if (subclassMap.ContainsKey(selectedIndex))
+                {
+                    string selectedSubclass = subclassMap[selectedIndex].Name.ToString();
+                    Console.WriteLine($"You selected: {selectedSubclass}");
+                    currentGarage.searchVehiclesForAType(selectedSubclass);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid index.");
+                }
+            }
+            
+        }
+
+        public void searchVehicleByRegisterNumber(Garage<Vehicle> currentGarage)
+        {
+            Console.WriteLine("Insert the register number of the vehicle you are searching for: ");
+            string regNumber = Console.ReadLine();
+
+            bool regNumExits  = currentGarage.searchVehicleByRegisterNumber(regNumber);
+
+            if(regNumExits)
+            {
+                Console.WriteLine("The searched vehicle does exists in this garage");
+            }
+            else
+            {
+                Console.WriteLine("The searched Vehicle doesn't exist in this garage");
+            }
+
+        }
     }
 }

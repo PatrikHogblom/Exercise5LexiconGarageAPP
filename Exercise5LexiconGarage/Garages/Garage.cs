@@ -1,5 +1,6 @@
 ﻿
 using Exercise5LexiconGarage.Vehicles;
+using System;
 
 namespace Exercise5LexiconGarage.Garages
 {
@@ -7,7 +8,7 @@ namespace Exercise5LexiconGarage.Garages
      Vad behöver vi i garage klassen? 
     1. skall vara generisk klass 
     2. skall ha en arrayen Vehicles samt dess kapacitet
-    3. övriga properties/fields: garageID, Namn, adress, stad, totPlatser   
+    3. övriga properties/fields: Namn, adress, stad, totPlatser   
      
      */
     public class Garage<T> where T : Vehicle
@@ -98,6 +99,44 @@ namespace Exercise5LexiconGarage.Garages
                 {
                     Console.WriteLine($"{regNum} doesn't exist in parking lots ");
                 }
+            }
+        }
+
+        public bool searchVehicleByRegisterNumber(string regNum)
+        {
+            for (int i = 0; i < Vehicles.Length; i++)
+            {
+                if (Vehicles[i] != null)
+                {
+                    if (Vehicles[i].RegisterNumber.ToLower() == regNum.ToLower())
+                    {
+                        return true;//return true if we find vehicle 
+                    }
+                }
+            }
+            return false;//returns false if we don't find the vehicle
+        }
+
+        public void searchVehiclesForAType(string selectedSubclass)
+        {
+            Console.WriteLine($"Vehciles of type {selectedSubclass} that exists in current garage are: ");
+            Console.WriteLine($"----------------------------------------------");
+            bool typeExists = false;
+            for (int i = 0; i < Vehicles.Length; i++)
+            {
+                if (Vehicles[i] != null)
+                {
+                    if (Vehicles[i].GetType().Name.ToString() == selectedSubclass)
+                    {
+                        Console.WriteLine($"{Vehicles[i].RegisterNumber}");
+                        typeExists = true;
+                    }
+                }
+            }
+            Console.WriteLine($"-----------------------------------------------");
+            if (typeExists == false)
+            {
+                Console.WriteLine($"{selectedSubclass} doesn't exist in parking lots ");
             }
         }
     }

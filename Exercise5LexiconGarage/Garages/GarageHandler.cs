@@ -1,6 +1,6 @@
 ﻿using Exercise5LexiconGarage.Vehicles;
 using System.Reflection;
-using System.Transactions;
+using System.Linq;
 
 namespace Exercise5LexiconGarage.Garages
 {
@@ -222,7 +222,7 @@ namespace Exercise5LexiconGarage.Garages
 
             //promt the user to choose a index
             Console.WriteLine("Enter the index of the type to choose from (0, 1, 2, ...):");
-            if(int.TryParse(Console.ReadLine(), out int selectedIndex))
+            if (int.TryParse(Console.ReadLine(), out int selectedIndex))
             {
                 if (subclassMap.ContainsKey(selectedIndex))
                 {
@@ -235,7 +235,7 @@ namespace Exercise5LexiconGarage.Garages
                     Console.WriteLine("Invalid input. Please enter a valid index.");
                 }
             }
-            
+
         }
 
         public void searchVehicleByRegisterNumber(Garage<Vehicle> currentGarage)
@@ -243,9 +243,9 @@ namespace Exercise5LexiconGarage.Garages
             Console.WriteLine("Insert the register number of the vehicle you are searching for: ");
             string regNumber = Console.ReadLine();
 
-            bool regNumExits  = currentGarage.searchVehicleByRegisterNumber(regNumber);
+            bool regNumExits = currentGarage.searchVehicleByRegisterNumber(regNumber);
 
-            if(regNumExits)
+            if (regNumExits)
             {
                 Console.WriteLine("The searched vehicle does exists in this garage");
             }
@@ -255,5 +255,59 @@ namespace Exercise5LexiconGarage.Garages
             }
 
         }
+
+        public void searchByVehicleProperty(Garage<Vehicle> currentGarage)
+        {
+            Vehicle[] resultFilter = currentGarage.GetVehicles;
+            
+            Console.WriteLine("Input Vehicle Type(or skip by writing 'skip')");
+            string inputSelectedType = Console.ReadLine().ToLower().Trim();
+            if (inputSelectedType != "skip" && !string.IsNullOrWhiteSpace(inputSelectedType))
+            {
+                resultFilter = currentGarage.FilterByVehicleType(inputSelectedType, resultFilter);
+            }
+
+            Console.WriteLine("Input Vehicle Registernumber(or skip by writing 'skip')");
+            string inputRegNum = Console.ReadLine().ToLower().Trim();
+            if (inputRegNum != "skip" && !string.IsNullOrWhiteSpace(inputRegNum))
+            {
+                resultFilter = currentGarage.FilterByVehicleRegNum(inputRegNum, resultFilter);
+            }
+
+            Console.WriteLine("Input Vehicle Color(or skip by writing 'skip')");
+            string inputColor = Console.ReadLine().ToLower().Trim();
+            if (inputColor != "skip" && !string.IsNullOrWhiteSpace(inputColor))
+            {
+                resultFilter  = currentGarage.FilterByVehicleColor(inputColor, resultFilter);
+            }
+
+            Console.WriteLine("Input Vehicle number of wheels(or skip by writing 'skip')");
+            string inputWheels = Console.ReadLine().ToLower().Trim();
+            int.TryParse(inputWheels, out int numWheels);
+            if (inputWheels != "skip" && !int.IsNegative(numWheels))
+            {
+                resultFilter = currentGarage.FilterByNumWheels(numWheels, resultFilter);
+            }
+
+            Console.WriteLine("Input Vehicle Model(or skip by writing 'skip')");
+            string inputModel = Console.ReadLine().ToLower().Trim();
+            if (inputModel != "skip" && !string.IsNullOrWhiteSpace(inputModel))
+            {
+                resultFilter = currentGarage.FilterByVehicleModel(inputModel, resultFilter);
+            }
+
+            Console.WriteLine("Input Vehicle Year(or skip by writing 'skip')");
+            string inputYear = Console.ReadLine().ToLower().Trim();
+            if (inputYear != "skip" && !string.IsNullOrWhiteSpace(inputYear))
+            {
+                resultFilter = currentGarage.FilterByVehicleYear(inputYear, resultFilter);
+            }
+
+            foreach (var item in resultFilter)
+            {
+                Console.WriteLine(item.Stats());
+            }
+        }
+
     }
 }

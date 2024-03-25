@@ -7,5 +7,7 @@
         int TotWheels { get; set;}
         string Model { get; set;}
         string Year { get; set;}
+
+        string Stats();
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Exercise5LexiconGarage.Vehicles
+﻿using System.Reflection;
+using System.Xml.Linq;
+
+namespace Exercise5LexiconGarage.Vehicles
 {
 
     public abstract class Vehicle : IVehicle
@@ -23,5 +26,18 @@
         public int TotWheels { get => _totWheels; set => _totWheels = value; }
         public string Model { get => _model; set => _model = value; }
         public string Year { get => _year; set => _year = value; }
+
+        public virtual string Stats()
+        {
+            string textValue = string.Empty;
+            textValue += $"Vehicle Type: {GetType().Name} \t";
+            textValue += $"Color: {_color}\t";
+            textValue += $"Total Wheels: {_totWheels}\t ";
+            textValue += $"Model: {_model}\t ";
+            textValue += $"Year: {_year}\t ";
+
+            return textValue;
+        }
+
     }
 }

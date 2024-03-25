@@ -1,6 +1,9 @@
 ﻿
 using Exercise5LexiconGarage.Vehicles;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Exercise5LexiconGarage.Garages
 {
@@ -11,7 +14,7 @@ namespace Exercise5LexiconGarage.Garages
     3. övriga properties/fields: Namn, adress, stad, totPlatser   
      
      */
-    public class Garage<T> where T : Vehicle
+    public class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         private Vehicle[] Vehicles;
         private int totVehicleCapacity;
@@ -49,6 +52,15 @@ namespace Exercise5LexiconGarage.Garages
             get { return City; }
             set { City = value; }
         }
+
+        public Vehicle[] GetVehicles 
+        {
+            get
+            {
+                return Vehicles.Where(vehicle => vehicle != null).ToArray();
+            }
+        }
+
 
         public void addVehicle(T createdObject)
         {
@@ -139,5 +151,41 @@ namespace Exercise5LexiconGarage.Garages
                 Console.WriteLine($"{selectedSubclass} doesn't exist in parking lots ");
             }
         }
+
+
+        /*public IEnumerable<T> FindVehicles(Func<T,bool> predicate)
+        {
+            return (IEnumerable<T>)Vehicles.Where((Func<Vehicle, bool>)predicate);
+        }*/
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            foreach (var vehicle in Vehicles)
+            {
+                if (vehicle != null)
+                {
+                    yield return (T)vehicle;
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public Vehicle[] FilterByVehicleType(string inputSelectedType, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputSelectedType).ToArray();
+
+        public Vehicle[] FilterByVehicleColor(string inputColor, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.Color.ToLower() == inputColor).ToArray();
+
+        public Vehicle[] FilterByVehicleRegNum(string inputRegNum, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.RegisterNumber.ToLower() == inputRegNum).ToArray();
+
+        public Vehicle[] FilterByNumWheels(int inputTotWheels, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.TotWheels == inputTotWheels).ToArray();
+
+        public Vehicle[] FilterByVehicleModel(string inputModel, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.Model.ToLower() == inputModel).ToArray();
+
+        public Vehicle[] FilterByVehicleYear(string inputYear, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.Year.ToLower() == inputYear).ToArray();
+
+        public Vehicle[] FilterByVehicle(string inputYear, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputYear).ToArray();
     }
 }

@@ -8,5 +8,10 @@
         {
             _cylinderVolume = cylinderVolume;
         }
+
+        public override string Stats()
+        {
+            return base.Stats() + $"Cylinder Volume: {_cylinderVolume} cm^3";
+        }
     }
 }

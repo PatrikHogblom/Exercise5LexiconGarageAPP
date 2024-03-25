@@ -7,5 +7,10 @@
         {
             _numberOfEngines = numberOfEngines;
         }
+
+        public override string Stats()
+        {
+            return base.Stats() + $"Number of engines: {_numberOfEngines}";
+        }
     }
 }

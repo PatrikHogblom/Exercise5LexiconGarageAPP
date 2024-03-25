@@ -4,8 +4,15 @@
     {
         static void Main(string[] args)
         {
-             var manager = new ManagerAPP();
-             manager.RunProgram();
+            try
+            {
+                var manager = new ManagerAPP();
+                manager.RunProgram();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
             //Console.ReadLine();
         }

@@ -7,5 +7,10 @@
         {
             _fuelType = fuelType;
         }
+
+        public override string Stats()
+        {
+            return base.Stats() + $"Fuel: {_fuelType}";
+        }
     }
 }

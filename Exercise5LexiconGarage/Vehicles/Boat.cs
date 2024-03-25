@@ -7,5 +7,10 @@
         {
             _boatLength = boatLength;
         }
+
+        public override string Stats()
+        {
+            return base.Stats() + $"Boat length: {_boatLength} m";
+        }
     }
 }

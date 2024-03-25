@@ -1,4 +1,5 @@
 ﻿using Exercise5LexiconGarage.Garages;
+using Exercise5LexiconGarage.UserInterface;
 using Exercise5LexiconGarage.Vehicles;
 using Microsoft.VisualBasic.FileIO;
 using System.Drawing;
@@ -8,10 +9,10 @@ using System.Security.Cryptography;
 
 namespace Exercise5LexiconGarage
 {
-    public class UI
+    public class UI : IUI
     {
         private static GarageHandler garagehandler = new GarageHandler();
-        public static void MainMenu()
+        public void DisplayMainMenu()
         {
             bool programRun = true;
             do
@@ -57,7 +58,7 @@ namespace Exercise5LexiconGarage
                         int garageIndex = garagehandler.GetGarageIndexByName(inputGarageName);
 
                         //2. create a submeny wheras we add vehicles to the garage
-                        SubMenu(garageIndex);
+                        DisplaySubMenu(garageIndex);
                         break;
                     case "3":
                         programRun = false;
@@ -66,7 +67,7 @@ namespace Exercise5LexiconGarage
             } while (programRun);
         }
 
-        private static void SubMenu(int indexGarage)
+        public void DisplaySubMenu(int indexGarage)
         {
             Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(indexGarage);
             bool programRun = true;

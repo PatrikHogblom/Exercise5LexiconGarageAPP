@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Exercise5LexiconGarage.Garages
 {
-    public class GarageHandler
+    public class GarageHandler : IGarageHandler
     {
         private List<Garage<Vehicle>> garageList;
 

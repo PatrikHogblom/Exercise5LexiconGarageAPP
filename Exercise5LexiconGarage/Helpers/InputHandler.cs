@@ -50,7 +50,7 @@ namespace Exercise5LexiconGarage.Helpers
 
         public static string GetStringInput(string prompt)
         {
-            string input;
+            string? input;
             do
             {
                 Console.WriteLine(prompt);

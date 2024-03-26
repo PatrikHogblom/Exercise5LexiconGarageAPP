@@ -157,7 +157,9 @@ namespace Exercise5LexiconGarage.Garages
 
         private static void InputVehicleVariables(out string regNumber, out string color, out int totWheels, out string model, out string year)
         {
+            
             regNumber = InputHandler.GetStringInput("Input your register of the vehicle, for example abc123/ABC123");
+            //check so that the regNumber doesn't exist in the garage before we add in
             color = InputHandler.GetStringInput("Input your color of the Vehcile: ");
             totWheels = InputHandler.GetIntegerInput("Insert the number of wheels your vehicle have: ");
             model = InputHandler.GetStringInput("Input the model of the vehcile: ");

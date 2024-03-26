@@ -57,17 +57,26 @@ namespace Exercise5LexiconGarage.Garages
 
         public void addVehicle(T createdObject)
         {
-            //find a empty slot in the Vehicles array
+            //todo: check that the object/register number is no already exist in the garage?
             int index = Array.FindIndex(Vehicles, vehicle => vehicle == null);
 
-            if (index != -1)
+            bool RegNumExists = searchVehicleByRegisterNumber(createdObject.RegisterNumber);
+            if (RegNumExists == true)
             {
-                Vehicles[index] = createdObject;
-                Console.WriteLine($"Parked {createdObject.RegisterNumber} to the garage!");
+                Console.WriteLine($"The registerNumber {createdObject.RegisterNumber} already exist, please restart process and input correct registernumber");
+                return;
             }
             else
             {
-                Console.WriteLine("Garage is full!!!");
+                if (index != -1)
+                {
+                    Vehicles[index] = createdObject;
+                    Console.WriteLine($"Parked {createdObject.RegisterNumber} to the garage!");
+                }
+                else
+                {
+                    Console.WriteLine("Garage is full!!!");
+                }
             }
         }
 
@@ -92,7 +101,7 @@ namespace Exercise5LexiconGarage.Garages
             {
                 if (Vehicles[i] != null)
                 {
-                    if (Vehicles[i]?.RegisterNumber?.ToLower() == regNum.ToLower())
+                    if (Vehicles[i].RegisterNumber.ToLower() == regNum.ToLower())
                     {
                         Vehicles[i] = null;
                         Console.WriteLine($"Removed {regNum} from the parking lot in the current garage.");

@@ -1,6 +1,8 @@
 ﻿using Exercise5LexiconGarage.Vehicles;
 using System.Reflection;
 using System.Linq;
+using Exercise5LexiconGarage.Helpers;
+using System.Security.Cryptography;
 
 namespace Exercise5LexiconGarage.Garages
 {
@@ -37,7 +39,7 @@ namespace Exercise5LexiconGarage.Garages
         {
             for (int i = 0; i < garageList.Count; i++)
             {
-                if (garageList[i].GarageName == name)
+                if (garageList[i].GarageName.Trim().ToLower() == name)
                 {
                     return i;
                 }
@@ -60,8 +62,9 @@ namespace Exercise5LexiconGarage.Garages
                 Console.WriteLine("5. Add a Motorcycle");
                 Console.WriteLine("6. Go back to submenu");
 
-                string input = Console.ReadLine();
-                switch (input)
+
+                string input = InputHandler.GetStringInput("Choose which type of Vehcile you want to park in the garage. ");
+                switch (input.Trim())
                 {
                     case "1":
                         garage.addVehicle(CreateAirplaneObject());
@@ -96,10 +99,7 @@ namespace Exercise5LexiconGarage.Garages
             int totWheels;
             InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
 
-            Console.WriteLine("Insert Number of enginges: ");
-            int totEngnies;
-            int.TryParse(Console.ReadLine(), out totEngnies);
-
+            int totEngnies = InputHandler.GetIntegerInput("Insert Number of enginges: ");
             AirPlane airPlane = new AirPlane(regNumber, color, totWheels, model, year, totEngnies);
 
             return airPlane;
@@ -111,10 +111,7 @@ namespace Exercise5LexiconGarage.Garages
             int totWheels;
             InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
 
-            Console.WriteLine("Insert Length of boat: ");
-            double boatLength;
-            double.TryParse(Console.ReadLine(), out boatLength);
-
+            double boatLength = InputHandler.GetDoubleInput("Insert Length of boat in m: ");
             Boat boat = new Boat(regNumber, color, totWheels, model, year, boatLength);
 
             return boat;
@@ -126,9 +123,7 @@ namespace Exercise5LexiconGarage.Garages
             int totWheels;
             InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
 
-            Console.WriteLine("Insert number of seats: ");
-            int numberofSeats;
-            int.TryParse(Console.ReadLine(), out numberofSeats);
+            int numberofSeats = InputHandler.GetIntegerInput("Insert number of seats the bus have: ");
 
             Bus bus = new Bus(regNumber, color, totWheels, model, year, numberofSeats);
 
@@ -141,8 +136,7 @@ namespace Exercise5LexiconGarage.Garages
             int totWheels;
             InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
 
-            Console.WriteLine("Insert fueltype: ");
-            string fuelType = Console.ReadLine();
+            string fuelType = InputHandler.GetStringInput("Insert fueltype: ");
 
             Car car = new Car(regNumber, color, totWheels, model, year, fuelType);
 
@@ -155,11 +149,7 @@ namespace Exercise5LexiconGarage.Garages
             int totWheels;
             InputVehicleVariables(out regNumber, out color, out totWheels, out model, out year);
 
-            Console.WriteLine("Insert CylinderVoulme: ");
-            double cylinderVolume;
-            double.TryParse(Console.ReadLine(), out cylinderVolume);
-
-
+            double cylinderVolume = InputHandler.GetDoubleInput("Insert the Volume of the cylinder in");
             Motorcycle motorcycle = new Motorcycle(regNumber, color, totWheels, model, year, cylinderVolume);
 
             return motorcycle;
@@ -167,18 +157,11 @@ namespace Exercise5LexiconGarage.Garages
 
         private static void InputVehicleVariables(out string regNumber, out string color, out int totWheels, out string model, out string year)
         {
-            //todo: if able then create a for statement to input all values of each subclass?
-            Console.WriteLine("Insert RegisterNumber: ");
-            regNumber = Console.ReadLine();
-            Console.WriteLine("Insert Color: ");
-            color = Console.ReadLine();
-            Console.WriteLine("Insert total Wheels: ");
-            int.TryParse(Console.ReadLine(), out totWheels);
-
-            Console.WriteLine("Insert model: ");
-            model = Console.ReadLine();
-            Console.WriteLine("Insert year: ");
-            year = Console.ReadLine();
+            regNumber = InputHandler.GetStringInput("Input your register of the vehicle, for example abc123/ABC123");
+            color = InputHandler.GetStringInput("Input your color of the Vehcile: ");
+            totWheels = InputHandler.GetIntegerInput("Insert the number of wheels your vehicle have: ");
+            model = InputHandler.GetStringInput("Input the model of the vehcile: ");
+            year = InputHandler.GetIntegerInput("Input the the year your vehicle were made, for example 2010, 2022, 1999: ").ToString();
         }
 
         //get specific garage
@@ -189,16 +172,13 @@ namespace Exercise5LexiconGarage.Garages
 
         public void RemoveVehicle(Garage<Vehicle> currentGarage)
         {
-            //what to do here 
             //1. print the existing vehicles
-            currentGarage.printVehicles();
+            //currentGarage.printVehicles();
             //2. choose the registernumber you want to remove
-            Console.WriteLine("Enter the registernumber you want to remove: ");
-            string regNum = Console.ReadLine();//todo cvheck if the registerrnumber exists or not later
-
+            string regNum = InputHandler.GetStringInput("Enter the registernumber you want to remove: ");
             currentGarage.RemoveVehicleByRegisterNumber(regNum);
 
-            currentGarage.printVehicles();
+            //currentGarage.printVehicles();
         }
 
         public void printVehiclesByType(Garage<Vehicle> currentGarage)
@@ -221,31 +201,27 @@ namespace Exercise5LexiconGarage.Garages
             }
 
             //promt the user to choose a index
-            Console.WriteLine("Enter the index of the type to choose from (0, 1, 2, ...):");
-            if (int.TryParse(Console.ReadLine(), out int selectedIndex))
+            int selectedIndex = InputHandler.GetIntegerInput("Enter the index of the type to choose from (0, 1, 2, ...):");
+            
+            if (subclassMap.ContainsKey(selectedIndex))
             {
-                if (subclassMap.ContainsKey(selectedIndex))
-                {
-                    string selectedSubclass = subclassMap[selectedIndex].Name.ToString();
-                    Console.WriteLine($"You selected: {selectedSubclass}");
-                    currentGarage.searchVehiclesForAType(selectedSubclass);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid index.");
-                }
+                string selectedSubclass = subclassMap[selectedIndex].Name.ToString();
+                Console.WriteLine($"You selected: {selectedSubclass}");
+                currentGarage.searchVehiclesForAType(selectedSubclass);
             }
+            else
+            {
+                Console.WriteLine("Invalid input. Please try again next time and enter a valid index.");
+            }
+            
 
         }
 
         public void searchVehicleByRegisterNumber(Garage<Vehicle> currentGarage)
         {
-            Console.WriteLine("Insert the register number of the vehicle you are searching for: ");
-            string regNumber = Console.ReadLine();
-
-            bool regNumExits = currentGarage.searchVehicleByRegisterNumber(regNumber);
-
-            if (regNumExits)
+            string regNumber = InputHandler.GetStringInput("Insert the register number of the vehicle you are searching for: ");
+            bool regNumExist = currentGarage.searchVehicleByRegisterNumber(regNumber);
+            if (regNumExist)
             {
                 Console.WriteLine("The searched vehicle does exists in this garage");
             }
@@ -256,51 +232,88 @@ namespace Exercise5LexiconGarage.Garages
 
         }
 
+        public bool checkIfFilterIsEmpty(Vehicle[] resultFilter)
+        {
+            if(resultFilter.Length == 0)
+            {
+                Console.WriteLine("Filter have no match");
+                return false;
+            }
+            return true;
+        }
+
         public void searchByVehicleProperty(Garage<Vehicle> currentGarage)
         {
             Vehicle[] resultFilter = currentGarage.GetVehicles;
             
-            Console.WriteLine("Input Vehicle Type(or skip by writing 'skip')");
-            string inputSelectedType = Console.ReadLine().ToLower().Trim();
+            string inputSelectedType = InputHandler.GetStringInput("Input Vehicle Type(or skip by writing 'skip')").ToLower().Trim();
+
             if (inputSelectedType != "skip" && !string.IsNullOrWhiteSpace(inputSelectedType))
             {
                 resultFilter = currentGarage.FilterByVehicleType(inputSelectedType, resultFilter);
+               
+                if (resultFilter.Length == 0)
+                {
+                    Console.WriteLine("No vehicles match the specified Type. Exiting search.");
+                    return; // Exit the method
+                }
             }
 
-            Console.WriteLine("Input Vehicle Registernumber(or skip by writing 'skip')");
-            string inputRegNum = Console.ReadLine().ToLower().Trim();
+            string inputRegNum = InputHandler.GetStringInput("Input Vehicle Registernumber(or skip by writing 'skip')").ToLower().Trim();
             if (inputRegNum != "skip" && !string.IsNullOrWhiteSpace(inputRegNum))
             {
                 resultFilter = currentGarage.FilterByVehicleRegNum(inputRegNum, resultFilter);
+                if (resultFilter.Length == 0)
+                {
+                    Console.WriteLine("No vehicles match the specified register number. Exiting search.");
+                    return; // Exit the method
+                }
             }
 
-            Console.WriteLine("Input Vehicle Color(or skip by writing 'skip')");
-            string inputColor = Console.ReadLine().ToLower().Trim();
+            string inputColor = InputHandler.GetStringInput("Input Vehicle Color(or skip by writing 'skip')").ToLower().Trim();
             if (inputColor != "skip" && !string.IsNullOrWhiteSpace(inputColor))
             {
                 resultFilter  = currentGarage.FilterByVehicleColor(inputColor, resultFilter);
+                if (resultFilter.Length == 0)
+                {
+                    Console.WriteLine("No vehicles match the specified color. Exiting search.");
+                    return; // Exit the method
+                }
             }
 
-            Console.WriteLine("Input Vehicle number of wheels(or skip by writing 'skip')");
-            string inputWheels = Console.ReadLine().ToLower().Trim();
+            //todo: if time permites, remake this code
+            string inputWheels = InputHandler.GetStringInput("Input Vehicle number of wheels(or skip by writing 'skip')").ToLower().Trim();
             int.TryParse(inputWheels, out int numWheels);
             if (inputWheels != "skip" && !int.IsNegative(numWheels))
             {
                 resultFilter = currentGarage.FilterByNumWheels(numWheels, resultFilter);
+                if (resultFilter.Length == 0)
+                {
+                    Console.WriteLine("No vehicles match the specified number of wheels. Exiting search.");
+                    return; // Exit the method
+                }
             }
 
-            Console.WriteLine("Input Vehicle Model(or skip by writing 'skip')");
-            string inputModel = Console.ReadLine().ToLower().Trim();
+            string inputModel = InputHandler.GetStringInput("Input Vehicle Model(or skip by writing 'skip')").ToLower().Trim();
             if (inputModel != "skip" && !string.IsNullOrWhiteSpace(inputModel))
             {
                 resultFilter = currentGarage.FilterByVehicleModel(inputModel, resultFilter);
+                if (resultFilter.Length == 0)
+                {
+                    Console.WriteLine("No vehicles match the specified model. Exiting search.");
+                    return; // Exit the method
+                }
             }
 
-            Console.WriteLine("Input Vehicle Year(or skip by writing 'skip')");
-            string inputYear = Console.ReadLine().ToLower().Trim();
+            string inputYear = InputHandler.GetStringInput("Input Vehicle Year(or skip by writing 'skip')").ToLower().Trim();
             if (inputYear != "skip" && !string.IsNullOrWhiteSpace(inputYear))
             {
                 resultFilter = currentGarage.FilterByVehicleYear(inputYear, resultFilter);
+                if (resultFilter.Length == 0)
+                {
+                    Console.WriteLine("No vehicles match the specified year. Exiting search.");
+                    return; // Exit the method
+                }
             }
 
             foreach (var item in resultFilter)

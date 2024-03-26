@@ -7,13 +7,6 @@ using System.Linq;
 
 namespace Exercise5LexiconGarage.Garages
 {
-    /*
-     Vad behöver vi i garage klassen? 
-    1. skall vara generisk klass 
-    2. skall ha en arrayen Vehicles samt dess kapacitet
-    3. övriga properties/fields: Namn, adress, stad, totPlatser   
-     
-     */
     public class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         private Vehicle[] Vehicles;
@@ -70,7 +63,7 @@ namespace Exercise5LexiconGarage.Garages
             if (index != -1)
             {
                 Vehicles[index] = createdObject;
-                Console.WriteLine($"Added {createdObject.RegisterNumber} to the Vehicles[]!");
+                Console.WriteLine($"Parked {createdObject.RegisterNumber} to the garage!");
             }
             else
             {
@@ -81,25 +74,25 @@ namespace Exercise5LexiconGarage.Garages
         public void printVehicles()
         {
             Console.WriteLine("------------Vehicles obj Array--------------");
+           
             for (int i = 0; i < Vehicles.Length; i++)
             {
-                //todo: might change this according to subclass type, i.e. every sub class have a unique "egenskap" 
                 if (Vehicles[i] != null)
                 {
-                    Console.WriteLine($" VehicleType: {Vehicles[i].GetType().Name} registerNumber: {Vehicles[i].RegisterNumber}");
-                    //todo: skapa en metod states() för skriva ut klassens variabler?
+                    Console.WriteLine(Vehicles[i].Stats());
                 }
             }
             Console.WriteLine("--------------------------------------------");
         }
 
+        //todo: create so this returns a bool or the garage instead, so we can test the method later?
         public void RemoveVehicleByRegisterNumber(string regNum)
         {
             for (int i = 0; i < Vehicles.Length; i++)
             {
                 if (Vehicles[i] != null)
                 {
-                    if (Vehicles[i].RegisterNumber.ToLower() == regNum.ToLower())
+                    if (Vehicles[i]?.RegisterNumber?.ToLower() == regNum.ToLower())
                     {
                         Vehicles[i] = null;
                         Console.WriteLine($"Removed {regNum} from the parking lot in the current garage.");
@@ -129,6 +122,7 @@ namespace Exercise5LexiconGarage.Garages
             return false;//returns false if we don't find the vehicle
         }
 
+        //todo: return true or false ehen testing later? 
         public void searchVehiclesForAType(string selectedSubclass)
         {
             Console.WriteLine($"Vehciles of type {selectedSubclass} that exists in current garage are: ");
@@ -140,7 +134,7 @@ namespace Exercise5LexiconGarage.Garages
                 {
                     if (Vehicles[i].GetType().Name.ToString() == selectedSubclass)
                     {
-                        Console.WriteLine($"{Vehicles[i].RegisterNumber}");
+                        Console.WriteLine($"{Vehicles[i].Stats()}");
                         typeExists = true;
                     }
                 }
@@ -151,12 +145,6 @@ namespace Exercise5LexiconGarage.Garages
                 Console.WriteLine($"{selectedSubclass} doesn't exist in parking lots ");
             }
         }
-
-
-        /*public IEnumerable<T> FindVehicles(Func<T,bool> predicate)
-        {
-            return (IEnumerable<T>)Vehicles.Where((Func<Vehicle, bool>)predicate);
-        }*/
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -174,18 +162,18 @@ namespace Exercise5LexiconGarage.Garages
             return GetEnumerator();
         }
 
-        public Vehicle[] FilterByVehicleType(string inputSelectedType, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputSelectedType).ToArray();
+        public T[] FilterByVehicleType(string inputSelectedType, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputSelectedType).ToArray();
 
-        public Vehicle[] FilterByVehicleColor(string inputColor, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.Color.ToLower() == inputColor).ToArray();
+        public T[] FilterByVehicleColor(string inputColor, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Color.ToLower() == inputColor).ToArray();
 
-        public Vehicle[] FilterByVehicleRegNum(string inputRegNum, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.RegisterNumber.ToLower() == inputRegNum).ToArray();
+        public T[] FilterByVehicleRegNum(string inputRegNum, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.RegisterNumber.ToLower() == inputRegNum).ToArray();
 
-        public Vehicle[] FilterByNumWheels(int inputTotWheels, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.TotWheels == inputTotWheels).ToArray();
+        public T[] FilterByNumWheels(int inputTotWheels, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.TotWheels == inputTotWheels).ToArray();
 
-        public Vehicle[] FilterByVehicleModel(string inputModel, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.Model.ToLower() == inputModel).ToArray();
+        public T[] FilterByVehicleModel(string inputModel, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Model.ToLower() == inputModel).ToArray();
 
-        public Vehicle[] FilterByVehicleYear(string inputYear, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.Year.ToLower() == inputYear).ToArray();
+        public T[] FilterByVehicleYear(string inputYear, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Year.ToLower() == inputYear).ToArray();
 
-        public Vehicle[] FilterByVehicle(string inputYear, Vehicle[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputYear).ToArray();
+        public T[] FilterByVehicle(string inputYear, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputYear).ToArray();
     }
 }

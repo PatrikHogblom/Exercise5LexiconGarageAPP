@@ -1,4 +1,5 @@
 ﻿using Exercise5LexiconGarage.Garages;
+using Exercise5LexiconGarage.Helpers;
 using Exercise5LexiconGarage.UserInterface;
 using Exercise5LexiconGarage.Vehicles;
 using Microsoft.VisualBasic.FileIO;
@@ -12,13 +13,9 @@ namespace Exercise5LexiconGarage
     public class UI : IUI
     {
         private static GarageHandler garagehandler = new GarageHandler();
-        public void DisplayMainMenu()
+        public static void DisplayMainMenu()
         {
-            bool programRun = true;
-            do
-            {
-
-                //to load a garage when starting application to test functions
+               //to load a garage when starting application to test functions, is a pain to add everything every time
                 garagehandler.addGarageToList(16, "test", "test 11", "Stockholm");
                 Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(0);
                 currentGarage.addVehicle(new Car("qwe123", "röd", 4, "BMW", "2020", "gas"));
@@ -35,6 +32,9 @@ namespace Exercise5LexiconGarage
                 currentGarage.addVehicle(new Bus("bus789", "blå", 8, "scania", "2020", 36));
 
 
+            bool programRun = true;
+            do
+            {
 
                 Console.WriteLine("1. Create garage and its capacity");
                 Console.WriteLine("2. Choose garage to use and go to its submenu: ");
@@ -50,24 +50,32 @@ namespace Exercise5LexiconGarage
                     case "2":
                         //1.choose which garage you want to use
                         garagehandler.PrintGaragesStored();
-
-                        Console.WriteLine("Enter the name of garage you want to use: ");
-                        string inputGarageName = Console.ReadLine();
-
+                        string inputGarageName = InputHandler.GetStringInput("Enter the name of garage you want to use: ");
                         //get the index of position of tha garage name
-                        int garageIndex = garagehandler.GetGarageIndexByName(inputGarageName);
-
+                        int garageIndex = garagehandler.GetGarageIndexByName(inputGarageName.Trim().ToLower());
                         //2. create a submeny wheras we add vehicles to the garage
-                        DisplaySubMenu(garageIndex);
+                        if(garageIndex == -1)
+                        {
+                            Console.WriteLine("The garage you searched for don't exist");
+                        }
+                        else
+                        {
+                            DisplaySubMenu(garageIndex);
+                        }
+                        
                         break;
                     case "3":
                         programRun = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid Input!");
                         break;
                 }
             } while (programRun);
         }
 
-        public void DisplaySubMenu(int indexGarage)
+        public static void DisplaySubMenu(int indexGarage)
         {
             Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(indexGarage);
             bool programRun = true;
@@ -106,31 +114,25 @@ namespace Exercise5LexiconGarage
                     case "7":
                         programRun = false;
                         break;
+                    default:
+                        Console.WriteLine("Invalid Input!");
+                        break;
                 }
             } while (programRun);
         }
 
-
-        //gör detta i garagehandler istället?
+        //todo: move createGarage object to garagehandler?
         public static void CreateGarageObject()
         {
-            //todo: asks the user to input capacity, name, adress, city of the garage
-            //before you create the object
-            //have a try catch here here in case
             try
             {
-                Console.WriteLine("Enter capacity of parking lots in the garage: ");
-                int capacity;
-                int.TryParse(Console.ReadLine(), out capacity);
+                int capacity = InputHandler.GetIntegerInput("Enter capacity of parking lots in the garage: ");
 
-                Console.WriteLine("Enter the name of the garage:");
-                string garageName = Console.ReadLine();
+                string garageName = InputHandler.GetStringInput("Enter the name of the garage:");
 
-                Console.WriteLine("Enter the address of the garage:");
-                string address = Console.ReadLine();
+                string address = InputHandler.GetStringInput("Enter the address of the garage:");
 
-                Console.WriteLine("Enter the city of the garage: ");
-                string city = Console.ReadLine();
+                string city = InputHandler.GetStringInput("Enter the city of the garage:");
 
                 //add the garage to the garageList in garageHandler 
                 garagehandler.addGarageToList(capacity, garageName, address, city);

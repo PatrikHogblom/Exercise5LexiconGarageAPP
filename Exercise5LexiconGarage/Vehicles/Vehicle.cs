@@ -30,11 +30,12 @@ namespace Exercise5LexiconGarage.Vehicles
         public virtual string Stats()
         {
             string textValue = string.Empty;
-            textValue += $"Vehicle Type: {GetType().Name} \t";
-            textValue += $"Color: {_color}\t";
-            textValue += $"Total Wheels: {_totWheels}\t ";
-            textValue += $"Model: {_model}\t ";
-            textValue += $"Year: {_year}\t ";
+            textValue += $"Vehicle Type: {GetType().Name}  ";
+            textValue += $"Register Number: {_registerNumber}  ";
+            textValue += $"Color: {_color}  ";
+            textValue += $"Total Wheels: {_totWheels}  ";
+            textValue += $"Model: {_model}  ";
+            textValue += $"Year: {_year}  ";
 
             return textValue;
         }

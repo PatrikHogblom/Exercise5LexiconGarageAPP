@@ -10,7 +10,7 @@ namespace Exercise5LexiconGarage
 
         public void RunProgram()
         {
-            UI.MainMenu();
+            UI.DisplayMainMenu();
         }
     }
 }

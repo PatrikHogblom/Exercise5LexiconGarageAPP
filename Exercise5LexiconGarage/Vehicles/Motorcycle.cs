@@ -1,6 +1,6 @@
 ﻿namespace Exercise5LexiconGarage.Vehicles
 {
-    class Motorcycle : Vehicle
+    public class Motorcycle : Vehicle
     {
         private double _cylinderVolume;
 

@@ -1,6 +1,6 @@
 ﻿namespace Exercise5LexiconGarage.Vehicles
 {
-    class Boat : Vehicle
+    public class Boat : Vehicle
     {
         private double _boatLength;
         public Boat(string registerNumber, string color, int totWheels, string model, string year, double boatLength) : base(registerNumber, color, totWheels, model, year)

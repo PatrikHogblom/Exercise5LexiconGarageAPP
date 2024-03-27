@@ -15,7 +15,7 @@ namespace Exercise5LexiconGarage
         private static GarageHandler garagehandler = new GarageHandler();
         public static void DisplayMainMenu()
         {
-               //to load a garage when starting application to test functions, is a pain to add everything every time
+               /*//to load a garage when starting application to test functions, is a pain to add everything every time
                 garagehandler.addGarageToList(16, "test", "test 11", "Stockholm");
                 Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(0);
                 currentGarage.addVehicle(new Car("qwe123", "röd", 4, "BMW", "2020", "gas"));
@@ -29,7 +29,7 @@ namespace Exercise5LexiconGarage
                 currentGarage.addVehicle(new Bus("bus123", "röd", 8, "volvo", "1999", 24));
                 currentGarage.addVehicle(new Motorcycle("mot123", "svart", 4, "honda", "2011", 24.4));
                 currentGarage.addVehicle(new Boat("boa123", "röd", 4, "volvo", "2024", 15));
-                currentGarage.addVehicle(new Bus("bus789", "blå", 8, "scania", "2020", 36));
+                currentGarage.addVehicle(new Bus("bus789", "blå", 8, "scania", "2020", 36));*/
 
 
             bool programRun = true;

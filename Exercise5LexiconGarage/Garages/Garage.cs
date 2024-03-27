@@ -63,7 +63,7 @@ namespace Exercise5LexiconGarage.Garages
             bool RegNumExists = searchVehicleByRegisterNumber(createdObject.RegisterNumber);
             if (RegNumExists == true)
             {
-                Console.WriteLine($"The registerNumber {createdObject.RegisterNumber} already exist, please restart process and input correct registernumber");
+                Console.WriteLine($"The registernumber {createdObject.RegisterNumber} already exist, please restart process and input correct registernumber");
                 return;
             }
             else
@@ -83,7 +83,7 @@ namespace Exercise5LexiconGarage.Garages
         public void printVehicles()
         {
             Console.WriteLine("------------Vehicles obj Array--------------");
-           
+
             for (int i = 0; i < Vehicles.Length; i++)
             {
                 if (Vehicles[i] != null)
@@ -173,16 +173,16 @@ namespace Exercise5LexiconGarage.Garages
 
         public T[] FilterByVehicleType(string inputSelectedType, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputSelectedType).ToArray();
 
-        public T[] FilterByVehicleColor(string inputColor, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Color.ToLower() == inputColor).ToArray();
+        public T[] FilterByVehicleColor(string inputColor, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Color.ToLower() == inputColor.ToLower()).ToArray();
 
-        public T[] FilterByVehicleRegNum(string inputRegNum, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.RegisterNumber.ToLower() == inputRegNum).ToArray();
+        public T[] FilterByVehicleRegNum(string inputRegNum, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.RegisterNumber.ToLower() == inputRegNum.ToLower()).ToArray();
 
         public T[] FilterByNumWheels(int inputTotWheels, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.TotWheels == inputTotWheels).ToArray();
 
-        public T[] FilterByVehicleModel(string inputModel, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Model.ToLower() == inputModel).ToArray();
+        public T[] FilterByVehicleModel(string inputModel, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Model.ToLower() == inputModel.ToLower()).ToArray();
 
         public T[] FilterByVehicleYear(string inputYear, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Year.ToLower() == inputYear).ToArray();
 
-        public T[] FilterByVehicle(string inputYear, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputYear).ToArray();
+        //public T[] FilterByVehicle(string inputYear, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputYear).ToArray();
     }
 }

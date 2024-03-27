@@ -23,6 +23,15 @@ namespace Exercise5LexiconGarage.Garages
             garageList.Add(new Garage<Vehicle>(capacity, name, address, city));
         }
 
+        public bool garageListIsNotNull()
+        {
+            if(garageList.Count != 0) 
+            { 
+                return true;
+            }
+            return false;
+        }
+
         //print the garages
         public void PrintGaragesStored()
         {
@@ -39,7 +48,7 @@ namespace Exercise5LexiconGarage.Garages
         {
             for (int i = 0; i < garageList.Count; i++)
             {
-                if (garageList[i].GarageName.Trim().ToLower() == name)
+                if (garageList[i].GarageName.Trim().ToLower() == name.ToLower().Trim())
                 {
                     return i;
                 }

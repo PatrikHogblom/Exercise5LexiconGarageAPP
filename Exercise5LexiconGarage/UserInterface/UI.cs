@@ -15,7 +15,7 @@ namespace Exercise5LexiconGarage
         private static GarageHandler garagehandler = new GarageHandler();
         public static void DisplayMainMenu()
         {
-               /*//to load a garage when starting application to test functions, is a pain to add everything every time
+               //to load a garage when starting application to test functions, is a pain to add everything every time
                 garagehandler.addGarageToList(16, "test", "test 11", "Stockholm");
                 Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(0);
                 currentGarage.addVehicle(new Car("qwe123", "röd", 4, "BMW", "2020", "gas"));
@@ -29,7 +29,7 @@ namespace Exercise5LexiconGarage
                 currentGarage.addVehicle(new Bus("bus123", "röd", 8, "volvo", "1999", 24));
                 currentGarage.addVehicle(new Motorcycle("mot123", "svart", 4, "honda", "2011", 24.4));
                 currentGarage.addVehicle(new Boat("boa123", "röd", 4, "volvo", "2024", 15));
-                currentGarage.addVehicle(new Bus("bus789", "blå", 8, "scania", "2020", 36));*/
+                currentGarage.addVehicle(new Bus("bus789", "blå", 8, "scania", "2020", 36));
 
 
             bool programRun = true;
@@ -49,19 +49,27 @@ namespace Exercise5LexiconGarage
                         break;
                     case "2":
                         //1.choose which garage you want to use
-                        garagehandler.PrintGaragesStored();
-                        string inputGarageName = InputHandler.GetStringInput("Enter the name of garage you want to use: ");
-                        //get the index of position of tha garage name
-                        int garageIndex = garagehandler.GetGarageIndexByName(inputGarageName.Trim().ToLower());
-                        //2. create a submeny wheras we add vehicles to the garage
-                        if(garageIndex == -1)
+                        if(garagehandler.garageListIsNotNull() == true)
                         {
-                            Console.WriteLine("The garage you searched for don't exist");
+                            garagehandler.PrintGaragesStored();
+                            string inputGarageName = InputHandler.GetStringInput("Enter the name of garage you want to use: ");
+                            //get the index of position of tha garage name
+                            int garageIndex = garagehandler.GetGarageIndexByName(inputGarageName.Trim().ToLower());
+                            //2. create a submeny wheras we add vehicles to the garage
+                            if (garageIndex == -1)
+                            {
+                                Console.WriteLine("The garage you searched for don't exist");
+                            }
+                            else
+                            {
+                                DisplaySubMenu(garageIndex);
+                            }
                         }
                         else
                         {
-                            DisplaySubMenu(garageIndex);
+                            Console.WriteLine("Please create a garage first!");
                         }
+                        
                         
                         break;
                     case "3":

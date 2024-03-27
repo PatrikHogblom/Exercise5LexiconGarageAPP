@@ -10,20 +10,20 @@ namespace Exercise5LexiconGarage.Garages
     {
         private List<Garage<Vehicle>> garageList;
 
-        //mainmenu methods:
         public GarageHandler()
         {
             // Initialize garageList in the constructor
             garageList = new List<Garage<Vehicle>>();
         }
 
-        //add garage to a list of garages
+        /// Adds the garage to a list
         public void addGarageToList(int capacity, string name, string address, string city)
         {
             garageList.Add(new Garage<Vehicle>(capacity, name, address, city));
         }
 
-        public bool garageListIsNotNull()
+        /// Checks if the garage is empty,
+        public bool garageListIsNotEmpty()
         {
             if(garageList.Count != 0) 
             { 
@@ -32,7 +32,7 @@ namespace Exercise5LexiconGarage.Garages
             return false;
         }
 
-        //print the garages
+        // Print out all parked vehciles in the garage 
         public void PrintGaragesStored()
         {
             Console.WriteLine("---------------Garages----------------");
@@ -43,7 +43,7 @@ namespace Exercise5LexiconGarage.Garages
             Console.WriteLine("--------------------------------------");
         }
 
-        //method to get the index of a garage based on its name
+        //returns a index of garage in the list based on if its name matches with our string input of name
         public int GetGarageIndexByName(string name)
         {
             for (int i = 0; i < garageList.Count; i++)
@@ -56,6 +56,7 @@ namespace Exercise5LexiconGarage.Garages
             return -1;
         }
 
+        // Park a vechile by specifying which type of vechile you wish to add, 
         public void AddVehicle(Garage<Vehicle> garage)
         {
             //what to do here? 
@@ -96,13 +97,9 @@ namespace Exercise5LexiconGarage.Garages
                 }
 
             } while (ProgramRun);
-
-
-
-            //2.add the vehicle to the Vehicle array in Garage Class 
         }
 
-
+        //Cretes a object of airplane
         private AirPlane CreateAirplaneObject()
         {
             string regNumber, color, model, year;
@@ -115,6 +112,7 @@ namespace Exercise5LexiconGarage.Garages
             return airPlane;
         }
 
+        //creates a object of boat 
         private Boat CreateBoatObject()
         {
             string regNumber, color, model, year;
@@ -127,6 +125,7 @@ namespace Exercise5LexiconGarage.Garages
             return boat;
         }
 
+        //Creates a object of bus
         private Bus CreateBusObject()
         {
             string regNumber, color, model, year;
@@ -140,6 +139,7 @@ namespace Exercise5LexiconGarage.Garages
             return bus;
         }
 
+        //Creates a object of car
         private Car CreateCarObject()
         {
             string regNumber, color, model, year;
@@ -152,7 +152,7 @@ namespace Exercise5LexiconGarage.Garages
 
             return car;
         }
-
+        //Creates a object of motorcycle
         private Motorcycle CreateMotorCycleObject()
         {
             string regNumber, color, model, year;
@@ -165,6 +165,7 @@ namespace Exercise5LexiconGarage.Garages
             return motorcycle;
         }
 
+        //get all necessary inputs of variables we need to create each object
         private static void InputVehicleVariables(out string regNumber, out string color, out int totWheels, out string model, out string year)
         {
             
@@ -176,12 +177,13 @@ namespace Exercise5LexiconGarage.Garages
             year = InputHandler.GetIntegerInput("Input the the year your vehicle were made, for example 2010, 2022, 1999: ").ToString();
         }
 
-        //get specific garage
+        //returns a garage object based on we want to fill it with vehciles 
         public Garage<Vehicle> GetGarageByIndex(int index)
         {
             return garageList[index];
         }
 
+        //removes/unparks a vehcile based register number
         public void RemoveVehicle(Garage<Vehicle> currentGarage)
         {
             //1. print the existing vehicles
@@ -193,6 +195,7 @@ namespace Exercise5LexiconGarage.Garages
             //currentGarage.printVehicles();
         }
 
+        //prints a list of parked vehciles by user option on type he want to print out  
         public void printVehiclesByType(Garage<Vehicle> currentGarage)
         {
             //get all types 
@@ -228,7 +231,7 @@ namespace Exercise5LexiconGarage.Garages
             
 
         }
-
+        //search if a register number exists in the current garage
         public void searchVehicleByRegisterNumber(Garage<Vehicle> currentGarage)
         {
             string regNumber = InputHandler.GetStringInput("Insert the register number of the vehicle you are searching for: ");
@@ -244,16 +247,8 @@ namespace Exercise5LexiconGarage.Garages
 
         }
 
-        public bool checkIfFilterIsEmpty(Vehicle[] resultFilter)
-        {
-            if(resultFilter.Length == 0)
-            {
-                Console.WriteLine("Filter have no match");
-                return false;
-            }
-            return true;
-        }
-
+        //filter out garage by specifying or skipping vehcile class criteras/fields
+        //todo: if time permits, improvements can be made here by reusing parts of code using a method 
         public void searchByVehicleProperty(Garage<Vehicle> currentGarage)
         {
             Vehicle[] resultFilter = currentGarage.GetVehicles;
@@ -293,7 +288,6 @@ namespace Exercise5LexiconGarage.Garages
                 }
             }
 
-            //todo: if time permites, remake this code
             string inputWheels = InputHandler.GetStringInput("Input Vehicle number of wheels(or skip by writing 'skip')").ToLower().Trim();
             int.TryParse(inputWheels, out int numWheels);
             if (inputWheels != "skip" && !int.IsNegative(numWheels))
@@ -328,6 +322,7 @@ namespace Exercise5LexiconGarage.Garages
                 }
             }
 
+            //prints out the filtered result of the garage 
             foreach (var item in resultFilter)
             {
                 Console.WriteLine(item.Stats());

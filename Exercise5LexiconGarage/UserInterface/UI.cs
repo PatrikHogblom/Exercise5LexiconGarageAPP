@@ -11,13 +11,19 @@ using System.Security.Cryptography;
 namespace Exercise5LexiconGarage
 {
 
-    //todo: change and add more methods to IUI interface
     public class UI : IUI
     {
         private static GarageHandler garagehandler = new GarageHandler();
+
+        // displays the main menu, have three options: 
+        // 1. create a garage by adding the capacity, name, address and city.
+        // 2. choose a garage, checks if garages exists or it go back to main menu and tells user to create a garage first
+        //    if garges exists, then go to the submenu of garage wheras we can park, unpark, see listed vehciles and more
+        //3. exit the grogram
+
         public void DisplayMainMenu()
         {
-               //to load a garage when starting application to test functions, is a pain to add everything every time
+               //to hard code to load a garage and its vehciles when starting application to test functions, can be a pain to add everything every time you run console
                 /*garagehandler.addGarageToList(16, "test", "test 11", "Stockholm");
                 Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(garagehandler.GetGarageIndexByName("test"));
                 currentGarage.addVehicle(new Car("qwe123", "röd", 4, "BMW", "2020", "gas"));
@@ -51,7 +57,7 @@ namespace Exercise5LexiconGarage
                         break;
                     case "2":
                         //1.choose which garage you want to use
-                        if(garagehandler.garageListIsNotNull() == true)
+                        if(garagehandler.garageListIsNotEmpty() == true)
                         {
                             garagehandler.PrintGaragesStored();
                             string inputGarageName = InputHandler.GetStringInput("Enter the name of garage you want to use: ");
@@ -72,7 +78,6 @@ namespace Exercise5LexiconGarage
                             Console.WriteLine("Please create a garage first!");
                         }
                         
-                        
                         break;
                     case "3":
                         programRun = false;
@@ -85,6 +90,15 @@ namespace Exercise5LexiconGarage
             } while (programRun);
         }
 
+        // this submenu show a options to choose to do
+        // 0. randomizes a vehcile to add to garage
+        // 1. parks the vehcile by adding vehicles information
+        // 2. unparks the vehciles by specifying the registernumber of vehcile
+        // 3. prints all parked vehciles
+        // 4.prints all parked vehciles by users option to choose which vehciles type to show on console 
+        // 5.check if a vehcile exist in the garage by its registernumber
+        // 6.filter out garage by Vehciles criteras, the program will ask you tol fill type, registernumber, 
+        //   Color, model, number of wheels, year. The user can choose to write or skip the filtering 
         public void DisplaySubMenu(int indexGarage)
         {
             Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(indexGarage);
@@ -135,6 +149,8 @@ namespace Exercise5LexiconGarage
             } while (programRun);
         }
 
+        
+        // Generates a randomzied Vehcile object
         public Vehicle CreateRandomVehicle()
         {
             Random rand = new Random();
@@ -164,6 +180,7 @@ namespace Exercise5LexiconGarage
             }
         }
 
+        //returns a randomized register number
         private string RandomRegNum()
         {
             Random rand = new Random();
@@ -171,7 +188,8 @@ namespace Exercise5LexiconGarage
             return new string(Enumerable.Repeat(chars, 6).Select(s => s[rand.Next(s.Length)]).ToArray());
         }
 
-        //todo: move createGarage object to garagehandler?
+        // Creates a garage object by asking the user to fill in capacity, name, adress, city 
+        //and adds it to a list object for garage class 
         public static void CreateGarageObject()
         {
             try

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Exercise5LexiconGarage.Garages
 {
@@ -46,6 +47,7 @@ namespace Exercise5LexiconGarage.Garages
             set { City = value; }
         }
 
+        //returns a array of vehciles, skips the null values(i.e. unparked lots)
         public Vehicle[] GetVehicles 
         {
             get
@@ -54,21 +56,20 @@ namespace Exercise5LexiconGarage.Garages
             }
         }
 
-
+        //method to park a vehcil 
         public void addVehicle(T createdObject)
         {
-            //todo: check that the object/register number is no already exist in the garage?
             int index = Array.FindIndex(Vehicles, vehicle => vehicle == null);
 
             bool RegNumExists = searchVehicleByRegisterNumber(createdObject.RegisterNumber);
-            if (RegNumExists == true)
+            if (RegNumExists == true)//if reg number exists then return to submenu,
             {
                 Console.WriteLine($"The registernumber {createdObject.RegisterNumber} already exist, please restart process and input correct registernumber");
                 return;
             }
             else
             {
-                if (index != -1)
+                if (index != -1)//if garage is not full, you can opark vehciles else tell the user the garage is full
                 {
                     Vehicles[index] = createdObject;
                     Console.WriteLine($"Parked {createdObject.RegisterNumber} to the garage!");
@@ -79,7 +80,7 @@ namespace Exercise5LexiconGarage.Garages
                 }
             }
         }
-
+        //prints out all parked vehciles 
         public void printVehicles()
         {
             Console.WriteLine("------------Vehicles obj Array--------------");
@@ -94,14 +95,14 @@ namespace Exercise5LexiconGarage.Garages
             Console.WriteLine("--------------------------------------------");
         }
 
-        //todo: create so this returns a bool or the garage instead, so we can test the method later?
+        //removes/unpark vehciles
         public void RemoveVehicleByRegisterNumber(string regNum)
         {
             for (int i = 0; i < Vehicles.Length; i++)
             {
                 if (Vehicles[i] != null)
                 {
-                    if (Vehicles[i].RegisterNumber.ToLower() == regNum.ToLower())
+                    if (Vehicles[i].RegisterNumber.ToLower() == regNum.ToLower())//if reg number exists, unpark the vehcile bu setting the spot to null
                     {
                         Vehicles[i] = null;
                         Console.WriteLine($"Removed {regNum} from the parking lot in the current garage.");
@@ -109,13 +110,13 @@ namespace Exercise5LexiconGarage.Garages
                     }
                 }
 
-                if (i == Vehicles.Length-1) 
+                if (i == Vehicles.Length-1) //if register number doesnt exist in parkinglots  
                 {
                     Console.WriteLine($"{regNum} doesn't exist in parking lots ");
                 }
             }
         }
-
+        //returns true if searched registernumber exists in the garage or false if it doen't exist 
         public bool searchVehicleByRegisterNumber(string regNum)
         {
             for (int i = 0; i < Vehicles.Length; i++)
@@ -131,7 +132,7 @@ namespace Exercise5LexiconGarage.Garages
             return false;//returns false if we don't find the vehicle
         }
 
-        //todo: return true or false ehen testing later? 
+        //lists all vechicles by selected Type
         public void searchVehiclesForAType(string selectedSubclass)
         {
             Console.WriteLine($"Vehciles of type {selectedSubclass} that exists in current garage are: ");
@@ -183,6 +184,5 @@ namespace Exercise5LexiconGarage.Garages
 
         public T[] FilterByVehicleYear(string inputYear, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.Year.ToLower() == inputYear).ToArray();
 
-        //public T[] FilterByVehicle(string inputYear, T[] ResultFilter) => ResultFilter.Where(v => v != null && v.GetType().Name.ToLower() == inputYear).ToArray();
     }
 }

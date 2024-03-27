@@ -102,6 +102,7 @@ namespace Exercise5LexiconGarage.Garages
             //2.add the vehicle to the Vehicle array in Garage Class 
         }
 
+
         private AirPlane CreateAirplaneObject()
         {
             string regNumber, color, model, year;

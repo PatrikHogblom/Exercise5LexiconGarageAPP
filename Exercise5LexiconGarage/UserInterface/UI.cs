@@ -15,10 +15,10 @@ namespace Exercise5LexiconGarage
     public class UI : IUI
     {
         private static GarageHandler garagehandler = new GarageHandler();
-        public static void DisplayMainMenu()
+        public void DisplayMainMenu()
         {
                //to load a garage when starting application to test functions, is a pain to add everything every time
-                garagehandler.addGarageToList(16, "test", "test 11", "Stockholm");
+                /*garagehandler.addGarageToList(16, "test", "test 11", "Stockholm");
                 Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(garagehandler.GetGarageIndexByName("test"));
                 currentGarage.addVehicle(new Car("qwe123", "röd", 4, "BMW", "2020", "gas"));
                 currentGarage.addVehicle(new Car("asd123", "blå", 4, "volvo", "2010", "gas"));
@@ -31,7 +31,7 @@ namespace Exercise5LexiconGarage
                 currentGarage.addVehicle(new Bus("bus123", "röd", 8, "volvo", "1999", 24));
                 currentGarage.addVehicle(new Motorcycle("mot123", "svart", 4, "honda", "2011", 24.4));
                 currentGarage.addVehicle(new Boat("boa123", "röd", 4, "volvo", "2024", 15));
-                currentGarage.addVehicle(new Bus("bus789", "blå", 8, "scania", "2020", 36));
+                currentGarage.addVehicle(new Bus("bus789", "blå", 8, "scania", "2020", 36));*/
 
 
             bool programRun = true;
@@ -85,14 +85,15 @@ namespace Exercise5LexiconGarage
             } while (programRun);
         }
 
-        public static void DisplaySubMenu(int indexGarage)
+        public void DisplaySubMenu(int indexGarage)
         {
             Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(indexGarage);
             bool programRun = true;
             do
             {
+                Console.WriteLine("0. Park Randomized Vehicle: ");
                 Console.WriteLine("1. Park vehicle: ");
-                Console.WriteLine("2. Remove vehicle: ");
+                Console.WriteLine("2. Unpark vehicle: ");
                 Console.WriteLine("3. print all parked vehicles in the garage: ");
                 Console.WriteLine("4. print all parked vehicles according a type in the garage: ");
                 Console.WriteLine("5. Search after a vehicle in the garage according to registernumber: ");
@@ -102,6 +103,10 @@ namespace Exercise5LexiconGarage
                 var input = Console.ReadLine();
                 switch (input)
                 {
+                    case "0":
+                        var randomVehcileObject = CreateRandomVehicle();
+                        currentGarage.addVehicle(randomVehcileObject);
+                        break;
                     case "1":
                         garagehandler.AddVehicle(currentGarage);
                         break;
@@ -119,7 +124,6 @@ namespace Exercise5LexiconGarage
                         break;
                     case "6":
                         garagehandler.searchByVehicleProperty(currentGarage);
-
                         break;
                     case "7":
                         programRun = false;
@@ -129,6 +133,42 @@ namespace Exercise5LexiconGarage
                         break;
                 }
             } while (programRun);
+        }
+
+        public Vehicle CreateRandomVehicle()
+        {
+            Random rand = new Random();
+            string[] colors = { "Red", "Blue", "Green", "Yellow", "Black", "White" };
+            string[] carModels = { "Toyota", "Honda", "Ford", "BMW", "Volvo", "Subaru" };
+            string[] motorcycleModels = { "Harley-Davidson", "Yamaha", "Honda", "Kawasaki", "Suzuki", "Ducati" , "BMW" };
+            string[] airplaneModels = { "Harley-Davidson", "Boeing", "Airbus", "Cessna", "Gulfstream", "Embraer", "Saab" };
+            string[] busModels = { "Scania", "Volvo", "Mercedes-Benz", "BMW", "MAN"};
+            string[] boatModels = { "Nimbus ", "Hallberg-Rassy", "Nimbus", "Nord-Star", "Storebro", "Malö" };
+            string[] years = { "2010", "2012", "2015", "2018", "2020", "2022" };
+
+            int typeIndex = rand.Next(5); // Choose random type index
+            switch (typeIndex)
+            {
+                case 0:
+                    return new Car(RandomRegNum(), colors[rand.Next(colors.Length)], rand.Next(3, 6), carModels[rand.Next(carModels.Length)], years[rand.Next(years.Length)], "Gas");
+                case 1:
+                    return new Motorcycle(RandomRegNum(), colors[rand.Next(colors.Length)], 2, motorcycleModels[rand.Next(motorcycleModels.Length)], years[rand.Next(years.Length)], rand.NextDouble() * 30);
+                case 2:
+                    return new AirPlane(RandomRegNum(), colors[rand.Next(colors.Length)], 6, airplaneModels[rand.Next(airplaneModels.Length)], years[rand.Next(years.Length)], rand.Next(2, 6));
+                case 3:
+                    return new Bus(RandomRegNum(), colors[rand.Next(colors.Length)], 8, busModels[rand.Next(busModels.Length)], years[rand.Next(years.Length)], rand.Next(20, 50));
+                case 4:
+                    return new Boat(RandomRegNum(), colors[rand.Next(colors.Length)], 0, boatModels[rand.Next(boatModels.Length)], years[rand.Next(years.Length)], rand.NextDouble() * 30);
+                default:
+                    throw new InvalidOperationException("Invalid vehicle type.");
+            }
+        }
+
+        private string RandomRegNum()
+        {
+            Random rand = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 6).Select(s => s[rand.Next(s.Length)]).ToArray());
         }
 
         //todo: move createGarage object to garagehandler?

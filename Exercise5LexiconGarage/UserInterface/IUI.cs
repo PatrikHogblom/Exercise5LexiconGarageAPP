@@ -8,8 +8,7 @@ namespace Exercise5LexiconGarage.UserInterface
 {
     public interface IUI
     {
-        /*void DisplayMainMenu(int indexGarage);
-        void DisplaySubMenu(int indexGarage);*/
-
+        void DisplayMainMenu();
+        void DisplaySubMenu(int indexGarage);
     }
 }

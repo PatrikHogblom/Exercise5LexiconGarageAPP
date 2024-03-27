@@ -10,6 +10,8 @@ using System.Security.Cryptography;
 
 namespace Exercise5LexiconGarage
 {
+
+    //todo: change and add more methods to IUI interface
     public class UI : IUI
     {
         private static GarageHandler garagehandler = new GarageHandler();
@@ -17,7 +19,7 @@ namespace Exercise5LexiconGarage
         {
                //to load a garage when starting application to test functions, is a pain to add everything every time
                 garagehandler.addGarageToList(16, "test", "test 11", "Stockholm");
-                Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(0);
+                Garage<Vehicle> currentGarage = garagehandler.GetGarageByIndex(garagehandler.GetGarageIndexByName("test"));
                 currentGarage.addVehicle(new Car("qwe123", "röd", 4, "BMW", "2020", "gas"));
                 currentGarage.addVehicle(new Car("asd123", "blå", 4, "volvo", "2010", "gas"));
                 currentGarage.addVehicle(new Car("zxc123", "grå", 4, "subaru", "2010", "gas"));
